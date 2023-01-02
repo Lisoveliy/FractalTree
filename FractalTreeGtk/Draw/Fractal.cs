@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -36,6 +37,7 @@ namespace FractalTreeGtk.Draw
             int x = 0;
             for (int i = 0; i < Fractallines[level - 1].Length; i++)
             {
+                Trace.WriteLine(level - 1);
                 if (Fractallines[level - 1][i].left)
                 {
                     Fractallines[level][x] = new Branch(
@@ -65,6 +67,11 @@ namespace FractalTreeGtk.Draw
             {
                 NextLevel();
             }
+        }
+        private int Modificator(int x, int level)
+        {
+            int count = Convert.ToInt32(Math.Pow(2, level));
+            return Math.Abs(x - count) + level;
         }
         //private int SumOfBranches()
         //{
