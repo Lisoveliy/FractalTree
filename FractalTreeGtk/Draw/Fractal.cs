@@ -42,11 +42,11 @@ namespace FractalTreeGtk.Draw
                 {
                     Fractallines[level][x] = new Branch(
                         Fractallines[level - 1][i].X2, Fractallines[level - 1][i].Y2,
-                        -(Math.Sin(deg + deg * (level-1)) * Length) + Fractallines[level - 1][i].X2, -(Math.Cos(deg + deg * (level - 1)) * Length) + Fractallines[level - 1][i].Y2
+                        -(Math.Sin(deg + deg * (level - 1)) * Length) + Fractallines[level - 1][i].X2, -(Math.Cos(deg + deg * (level - 1)) * Length) + Fractallines[level - 1][i].Y2
                         , true);
                     Fractallines[level][++x] = new Branch(
                         Fractallines[level - 1][i].X2, Fractallines[level - 1][i].Y2,
-                        -(Math.Sin(-deg + deg * (level-1)) * Length) + Fractallines[level - 1][i].X2, -(Math.Cos(-deg + deg * (level - 1)) * Length) + Fractallines[level - 1][i].Y2
+                        -(Math.Sin(-deg + deg * (level - 1)) * Length) + Fractallines[level - 1][i].X2, -(Math.Cos(-deg + deg * (level - 1)) * Length) + Fractallines[level - 1][i].Y2
                         , false);
                 }
                 else
