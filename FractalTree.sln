@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CairoObjective", "CairoObjective\CairoObjective.csproj", "{943860CD-7811-4089-ACC8-FD57D67A4FE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FractalTreeGtk", "FractalTreeGtk\FractalTreeGtk.csproj", "{510C072F-F749-4343-A4C2-523358FA3F7E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{943860CD-7811-4089-ACC8-FD57D67A4FE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{943860CD-7811-4089-ACC8-FD57D67A4FE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{943860CD-7811-4089-ACC8-FD57D67A4FE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{943860CD-7811-4089-ACC8-FD57D67A4FE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{510C072F-F749-4343-A4C2-523358FA3F7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{510C072F-F749-4343-A4C2-523358FA3F7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{510C072F-F749-4343-A4C2-523358FA3F7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{510C072F-F749-4343-A4C2-523358FA3F7E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6D5961A6-3340-47D1-8DA9-9A6219BD8501}
+	EndGlobalSection
+EndGlobal
