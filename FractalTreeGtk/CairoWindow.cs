@@ -34,15 +34,20 @@ namespace FractalTreeGtk
 
         private void Drawing_Drawn(object o, DrawnArgs args)
         {
+            long branches = 0;
+            Text.CenterText = false;
             args.Cr.Translate(AllocatedWidth / 2, AllocatedHeight);
             Set.Context = args.Cr;
             Set.Background(new Cairo.Color(0, 0, 0));
-            foreach(CairoObjective.DrawObjects.Line[] lines in (CairoObjective.DrawObjects.Line[][])fractal.Fractallines)
+            foreach (CairoObjective.DrawObjects.Line[] lines in (CairoObjective.DrawObjects.Line[][])fractal.Fractallines)
             {
-                foreach(CairoObjective.DrawObjects.Line line in lines)
+                foreach (CairoObjective.DrawObjects.Line line in lines) { 
+                branches++;
                 Line.Make(line);
+                }
             }
-            Text.Make($"Levels: {fractallevels}", -(AllocatedWidth / 2) + 50, -20, new Cairo.Color(1,1,1));
+            Text.Make($"Total Branches: {branches}", -(AllocatedWidth / 2), -30, new Cairo.Color(1, 1, 1));
+            Text.Make($"Levels: {fractallevels}", -(AllocatedWidth / 2), -5, new Cairo.Color(1,1,1));
         }
     }
 }
