@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -7,60 +7,78 @@ namespace FractalTreeGtk.Draw
 {
     internal class Fractal
     {
-        double Length = 50;
-        double deg = 0.3;
+        public bool Drawing = true;
+        CairoWindow window;
+        double Length = 100;
+        double MainDegree = 0.4;
         int levels;
         int level = 0;
-        double deltaLength = 2;
+        double deltaLength = 5;
         public Branch[][] Fractallines;
-        public Fractal(int levels)
+        public Fractal(int levels, CairoWindow window)
         {
-                this.levels = levels;
-                Fractallines = new Branch[levels + 1][];
-                CreateBranch();
+            this.window = window;
+            this.levels = levels;
+            Fractallines = new Branch[levels + 1][];
+            CreateBranch();
         }
         private void CreateBranch()
         {
-            Fractallines[level] = new Branch[Convert.ToInt32(Math.Pow(2, level))];
-            for (int i = 0; i < Fractallines[level].Length; i++)
-            {
-                Fractallines[level][i] = new Branch(0, 0, 0, -Length, true);
-            }
-            level++;
-            NextLevel();
+                Fractallines[level] = new Branch[Convert.ToInt32(Math.Pow(2, level))];
+                for (int i = 0; i < Fractallines[level].Length; i++)
+                {
+                    Fractallines[level][i] = new Branch(0, 0, 0, -Length, true, 0);
+                }
+                level++;
+                NextLevel();
         }
         private void NextLevel()
         {
+            window.QueueDraw();
             Length -= deltaLength;
-            
+            window.QueueDraw();
             Fractallines[level] = new Branch[Convert.ToInt32(Math.Pow(2, level))];
             int x = 0;
             for (int i = 0; i < Fractallines[level - 1].Length; i++)
             {
-                Trace.WriteLine("level: " + level);
+                double Degree = Fractallines[level - 1][i].degree;
                 if (Fractallines[level - 1][i].left)
                 {
-                    Trace.WriteLine("x: " + x);
+                    double leftdegree = MainDegree + Degree;
+                    double rightdegree = -MainDegree + Degree;
                     Fractallines[level][x] = new Branch(
-                        Fractallines[level - 1][i].X2, Fractallines[level - 1][i].Y2,
-                        -(Math.Sin(deg + deg * (level - Modificator(x, level))) * Length) + Fractallines[level - 1][i].X2, -(Math.Cos(deg + deg * (level - Modificator(x, level))) * Length) + Fractallines[level - 1][i].Y2
-                        , true);
+                        Fractallines[level - 1][i].X2,
+                        Fractallines[level - 1][i].Y2,
+                        -(Math.Sin(leftdegree) * Length) + Fractallines[level - 1][i].X2,
+                        -(Math.Cos(leftdegree) * Length) + Fractallines[level - 1][i].Y2,
+                        true,
+                        leftdegree);
                     Fractallines[level][++x] = new Branch(
-                        Fractallines[level - 1][i].X2, Fractallines[level - 1][i].Y2,
-                        -(Math.Sin(-deg + deg * (level - Modificator(x, level))) * Length) + Fractallines[level - 1][i].X2, -(Math.Cos(-deg + deg * (level - Modificator(x, level))) * Length) + Fractallines[level - 1][i].Y2
-                        , false);
+                        Fractallines[level - 1][i].X2,
+                        Fractallines[level - 1][i].Y2,
+                        -(Math.Sin(rightdegree) * Length) + Fractallines[level - 1][i].X2,
+                        -(Math.Cos(rightdegree) * Length) + Fractallines[level - 1][i].Y2,
+                        false,
+                        rightdegree);
                 }
                 else
                 {
-                    Trace.WriteLine("x: " + x);
+                    double leftdegree = -(MainDegree - Degree);
+                    double rightdegree = -(-MainDegree - Degree);
                     Fractallines[level][x] = new Branch(
-                        Fractallines[level - 1][i].X2, Fractallines[level - 1][i].Y2,
-                        -(Math.Sin(deg - deg * (level - Modificator(x, level))) * Length) + Fractallines[level - 1][i].X2, -(Math.Cos(deg - deg * (level - Modificator(x, level))) * Length) + Fractallines[level - 1][i].Y2
-                        , true);
+                        Fractallines[level - 1][i].X2,
+                        Fractallines[level - 1][i].Y2,
+                        -(Math.Sin(leftdegree) * Length) + Fractallines[level - 1][i].X2,
+                        -(Math.Cos(leftdegree) * Length) + Fractallines[level - 1][i].Y2,
+                        true,
+                        leftdegree);
                     Fractallines[level][++x] = new Branch(
                         Fractallines[level - 1][i].X2, Fractallines[level - 1][i].Y2,
-                        -(Math.Sin(-deg - deg * (level - Modificator(x, level))) * Length) + Fractallines[level - 1][i].X2, -(Math.Cos(-deg - deg * (level - Modificator(x, level))) * Length) + Fractallines[level - 1][i].Y2
-                        , false);
+
+                        -(Math.Sin(rightdegree) * Length) + Fractallines[level - 1][i].X2,
+                        -(Math.Cos(rightdegree) * Length) + Fractallines[level - 1][i].Y2,
+                         false,
+                         rightdegree);
                 }
                 x++;
             }
@@ -69,10 +87,7 @@ namespace FractalTreeGtk.Draw
             {
                 NextLevel();
             }
-        }
-        private int Modificator(int x, int level)
-        {
-            return 1;
+            else Drawing = false;
         }
         //private int SumOfBranches()
         //{

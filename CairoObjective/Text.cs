@@ -4,7 +4,7 @@
     public class Text
     {
         public static double DefaultFontSize = 20;//Default Font Size
-
+        public static bool CenterText = true;
         public static void Make(string text, int pointX, int pointY, double size, Cairo.Color color)
         {
             Set.CheckContext();
@@ -12,7 +12,10 @@
             context.SetSourceColor(color);
             context.SetFontSize(size);
             Cairo.TextExtents extents = context.TextExtents(text);
+            if(CenterText)
             context.MoveTo(pointX - extents.Width / 2, pointY + extents.Height / 2);
+            else
+            context.MoveTo(pointX, pointY);
             context.ShowText(text);
         }
         public static void Make(string text, int pointX, int pointY, Cairo.Color color)
@@ -22,7 +25,10 @@
             context.SetSourceColor(color);
             context.SetFontSize(DefaultFontSize);
             Cairo.TextExtents extents = context.TextExtents(text);
-            context.MoveTo(pointX - extents.Width / 2, pointY + extents.Height / 2);
+            if (CenterText)
+                context.MoveTo(pointX - extents.Width / 2, pointY + extents.Height / 2);
+            else
+                context.MoveTo(pointX, pointY);
             context.ShowText(text);
         }
         public static void Make(string text, int pointX, int pointY, double size)
@@ -32,7 +38,10 @@
             context.SetSourceColor(Set.Color);
             context.SetFontSize(size);
             Cairo.TextExtents extents = context.TextExtents(text);
-            context.MoveTo(pointX - extents.Width / 2, pointY + extents.Height / 2);
+            if (CenterText)
+                context.MoveTo(pointX - extents.Width / 2, pointY + extents.Height / 2);
+            else
+                context.MoveTo(pointX, pointY);
             context.ShowText(text);
         }
         public static void Make(string text, int pointX, int pointY)
@@ -42,7 +51,10 @@
             context.SetSourceColor(Set.Color);
             context.SetFontSize(DefaultFontSize);
             Cairo.TextExtents extents = context.TextExtents(text);
-            context.MoveTo(pointX - extents.Width / 2, pointY + extents.Height / 2);
+            if (CenterText)
+                context.MoveTo(pointX - extents.Width / 2, pointY + extents.Height / 2);
+            else
+                context.MoveTo(pointX, pointY);
             context.ShowText(text);
         }
     }
