@@ -7,31 +7,36 @@ namespace FractalTreeGtk.Draw
 {
     internal class Fractal
     {
+        public bool Drawing = true;
+        CairoWindow window;
         double Length = 100;
         double MainDegree = 0.4;
         int levels;
         int level = 0;
         double deltaLength = 5;
         public Branch[][] Fractallines;
-        public Fractal(int levels)
+        public Fractal(int levels, CairoWindow window)
         {
-                this.levels = levels;
-                Fractallines = new Branch[levels + 1][];
-                CreateBranch();
+            this.window = window;
+            this.levels = levels;
+            Fractallines = new Branch[levels + 1][];
+            CreateBranch();
         }
         private void CreateBranch()
         {
-            Fractallines[level] = new Branch[Convert.ToInt32(Math.Pow(2, level))];
-            for (int i = 0; i < Fractallines[level].Length; i++)
-            {
-                Fractallines[level][i] = new Branch(0, 0, 0, -Length, true, 0);
-            }
-            level++;
-            NextLevel();
+                Fractallines[level] = new Branch[Convert.ToInt32(Math.Pow(2, level))];
+                for (int i = 0; i < Fractallines[level].Length; i++)
+                {
+                    Fractallines[level][i] = new Branch(0, 0, 0, -Length, true, 0);
+                }
+                level++;
+                NextLevel();
         }
         private void NextLevel()
         {
+            window.QueueDraw();
             Length -= deltaLength;
+            window.QueueDraw();
             Fractallines[level] = new Branch[Convert.ToInt32(Math.Pow(2, level))];
             int x = 0;
             for (int i = 0; i < Fractallines[level - 1].Length; i++)
@@ -82,6 +87,7 @@ namespace FractalTreeGtk.Draw
             {
                 NextLevel();
             }
+            else Drawing = false;
         }
         //private int SumOfBranches()
         //{
