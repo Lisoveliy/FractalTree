@@ -1,5 +1,5 @@
 # Fractal renderer on Gtk#
-Generator of fractal trees on Gtk#
+Drawer of fractal trees on Gtk# library
 
 # How to use:
 
