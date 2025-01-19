@@ -10,7 +10,7 @@ namespace FractalTreeGtk
     internal class CairoWindow : Window
     {
         private int FractalLevels { get; set; } = 2;
-        readonly DrawingArea _drawing = new DrawingArea();
+        readonly DrawingArea _drawing = new();
         Fractal _fractal = null!;
 
         public CairoWindow(string title) : base(title)
@@ -44,9 +44,9 @@ namespace FractalTreeGtk
                         FractalLevels--;
                         GenerateFractal();
                     }
-
                     break;
                 case Key.r: //Regenerate fractal
+                case Key.R:    
                     GenerateFractal();
                     break;
             }

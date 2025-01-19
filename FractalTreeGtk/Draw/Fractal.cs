@@ -6,11 +6,10 @@ namespace FractalTreeGtk.Draw
     {
         private readonly CairoWindow _window;
         private double Length { get; set; } = new Random().Next(70, 90);
-        private int MaxLevels { get; set; }
-        private int CurrentLevel { get; set; } = 0;
-        public bool IsDrawing { private set; get; }
+        private int MaxLevels { get; }
+        private int CurrentLevel { get; set; }
         private double Degree => new Random().Next(30, 50) / 100f;
-        private double DeltaLength => new Random().Next(0, 50) / 100f;
+        private double DeltaLength => new Random().Next(0, 20) / (float)Math.Log2(CurrentLevel+1);
 
         public Branch[][] FractalLines { get; }
 
@@ -38,7 +37,7 @@ namespace FractalTreeGtk.Draw
         {
             _window.QueueDraw();
             var len = DeltaLength;
-            if (Length < DeltaLength)
+            if (Length < 0)
                 Length = DeltaLength;
             else
                 Length -= DeltaLength;
@@ -94,7 +93,6 @@ namespace FractalTreeGtk.Draw
             {
                 NextLevel();
             }
-            else IsDrawing = false;
         }
     }
 }

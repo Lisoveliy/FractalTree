@@ -1,18 +1,14 @@
 ﻿using Gtk;
 
-namespace FractalTreeGtk
+namespace FractalTreeGtk;
+
+internal class Program
 {
-    internal class Program
+    static void Main()
     {
-        static void Main(string[] args)
-        {
-            Application.Init();
+        Application.Init();
 
-            //Create the Window
-
-            Window myWin = new CairoWindow("My first GTK# Application! ");
-
-            Application.Run();
-        }
+        _ = new CairoWindow("Fractal window");
+        Application.Run();
     }
 }
